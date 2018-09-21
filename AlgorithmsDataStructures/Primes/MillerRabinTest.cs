@@ -11,23 +11,21 @@ namespace silver2687.Algorithms.Primes
     {
         public class Deterministic
         {
-            public bool IsPrime(PrimeType candidate)
+            public bool IsPrime(PrimeType N)
             {
-                throw new NotImplementedException();
-                //var factors = Power2Factorizer.Factorize(N - 1);
-                //var witnesses = WitnessProvider.GetWitnesses(N);
-                //foreach (var a in witnesses)
-                //{
-                //    //var rSet = Enumerable.Range(0, factors.s).Reverse();
-                //    var rSet = new int[factors.s];
-                //    if (rSet.All(r =>
-                //        Power.Modular(a, (Power.Regular(2, r)) * factors.d, N) != N - 1 &&
-                //        Power.Modular(a, factors.d, N) != 1))
-                //    {
-                //        return false;
-                //    }
-                //}
-                //return true;
+                var factors = Power2Factorizer.Factorize(N - 1);
+                var witnesses = WitnessProvider.GetWitnesses(N);
+                foreach (var a in witnesses)
+                {
+                    var rSet = Enumerable.Range(0, factors.s).ToList();
+                    if (rSet.All(r =>
+                        BigInteger.ModPow(a, ((PrimeType)Math.Pow(2, r)) * factors.d, N) != N - 1 &&
+                        BigInteger.ModPow(a, factors.d, N) != 1))
+                    {
+                        return false;
+                    }
+                }
+                return true;
             }
         }
 
