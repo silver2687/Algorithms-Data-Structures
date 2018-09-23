@@ -7,7 +7,7 @@ namespace AlgorithmsDataStructures.Primes
 
     public class EratosthenesSieve
     {
-        private IList<PrimeType> GeneratePrimes(int upperBound)
+        public IList<PrimeType> GeneratePrimes(int upperBound)
         {
             var primes = new List<PrimeType>();
             var upperBoundRoot = (int)Math.Sqrt(upperBound);
