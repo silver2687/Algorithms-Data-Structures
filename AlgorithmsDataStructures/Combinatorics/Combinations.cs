@@ -4,7 +4,7 @@ namespace silver2687.Algorithms.Combinatorics
 {
     public class Combinations
     {
-        public IEnumerable<T[]> Generate<T>(IList<T> set, int k)
+        public static IEnumerable<T[]> Generate<T>(IList<T> set, int k)
         {
             var result = new T[k];
             Stack<int> stack = new Stack<int>();
@@ -15,18 +15,21 @@ namespace silver2687.Algorithms.Combinatorics
                 int index = stack.Count - 1;
                 int value = stack.Pop();
 
-                while (value < k)
+                while (value < set.Count)
                 {
-                    result[index++] = set[++value];
+                    result[index++] = set[value++];
                     stack.Push(value);
 
                     if (index == k)
                     {
-                        yield return result;
+                        var currentResult = new T[k];
+                        Array.Copy(result, currentResult, k);
+                        yield return currentResult;
                         break;
                     }
                 }
             }
         }
     }
+
 }
